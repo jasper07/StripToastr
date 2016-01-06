@@ -17,4 +17,4 @@ Demos
 ----
 Examples are in the `samples` directory and cover all of the core functionality.
 
-See http://jasper07.github.io/openui5-googlemaps/ for online demos.
+See http://jasper07.secondphase.com.au/StripToastr/ for online demos.
