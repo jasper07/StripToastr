@@ -1,8 +1,7 @@
  sap.ui.require([
     "openui5/StripToastr",
     "sap/ui/thirdparty/sinon",
-    "sap/ui/thirdparty/sinon-qunit",
-    "test/unit/js-coverage-filter"
+    "sap/ui/thirdparty/sinon-qunit"
  ], function(StripToastr) {
     'use strict';
     QUnit.module("Basics", {
