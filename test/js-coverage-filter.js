@@ -7,7 +7,7 @@ if (window.blanket) {
 			oRetValue;
 
 		for (var sFile in oResults) {
-			if (sFile.substr(0, 9) == "openui5/") {
+			if (sFile.substr(0, 8) == "openui5/") {
 				oFiltered[sFile] = oResults[sFile];
 			}
 		}
