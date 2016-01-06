@@ -1,5 +1,5 @@
  sap.ui.require([
-    "my/StripToastr",
+    "openui5/StripToastr",
     "sap/ui/thirdparty/sinon",
     "sap/ui/thirdparty/sinon-qunit"
  ], function(StripToastr) {

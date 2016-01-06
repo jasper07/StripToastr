@@ -1,5 +1,20 @@
 language: node_js
+cache: true
 node_js:
-    - "4.1"
-before_script:
-    - npm install -g grunt-cli
+  - "4.1"
+
+branches:
+  only:
+    - master
+
+before_install:
+  - npm install -g eslint
+  - npm install gulp -g
+
+script:
+  - npm install
+  - gulp test 
+
+notifications:
+  email:
+    - john.patterson@secondphase.com.au

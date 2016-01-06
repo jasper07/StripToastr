@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             unit: {
                 options: {
                     urls: [
-                        "http://localhost:8080/StripToastr.qunit.html"
+                        "<%= localServerTestUrl %>/StripToastr.qunit.html"
                     ]
                 }
             }

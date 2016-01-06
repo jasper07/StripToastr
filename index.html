@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <title>StripToastr Test PlayGround</title>
-    <script id="sap-ui-bootstrap" src="/resources/sap-ui-core.js" data-sap-ui-libs="sap.m" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-preload="async" data-sap-ui-accessibility="false" data-sap-ui-resourceroots='{"my": "./src/"}'>
+    <script id="sap-ui-bootstrap" src="/resources/sap-ui-core.js" data-sap-ui-libs="sap.m" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-preload="async" data-sap-ui-accessibility="false" data-sap-ui-resourceroots='{"openui5": "./src/"}'>
     </script>
     <style type="text/css">
     .newButton.sapMBtn {
@@ -25,7 +25,7 @@
     <script>
     sap.ui.getCore().attachInitEvent(function() {
         sap.ui.require([
-            "my/StripToastr", "sap/m/Link", "sap/m/Button", "sap/m/Input", "sap/m/ComboBox",
+            "openui5/StripToastr", "sap/m/Link", "sap/m/Button", "sap/m/Input", "sap/m/ComboBox",
             "sap/m/Label", "sap/m/CheckBox", "sap/ui/core/Item", "sap/ui/layout/VerticalLayout", "sap/ui/layout/HorizontalLayout", "sap/ui/layout/form/SimpleForm"
         ], function(StripToastr, Link, Button, Input, ComboBox, Label, CheckBox, Item,
             VerticalLayout, HorizontalLayout, SimpleForm) {

@@ -6,8 +6,11 @@
   "scripts": {
     "test": "grunt"
   },
-  "keywords": [],
-  "author": "John.Patterson@secondphase.com.au",
+  "keywords": ["Openui5", "Toast", "MessageStrip"],
+    "author": {
+        "name": "John Patterson",
+        "url": "http://secondphase.com.au"
+    },
   "dependencies": {
   },
   "devDependencies": {
