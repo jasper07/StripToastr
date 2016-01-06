@@ -29,6 +29,7 @@
         // Arrange
         StripToastr._oSettings.newestFirst = true;
 
+        // Act
         var aMessages = [
             StripToastr.notify({
                 text: "test1"
@@ -88,9 +89,9 @@
         assert.ok(oContainer.$(), "Container rendered");
         assert.strictEqual(oContainer.getContent().length, 0, "Container empty");
 
-        // Assert
+        // Act
         StripToastr.clear();
-
+        // Assert
         setTimeout(function() {
             assert.strictEqual(oContainer.$().length, 0, "Container DOM was destroyed");
             done();
@@ -101,7 +102,6 @@
         // Arrange
         var delay = 1000;
         var done = assert.async();
-
 
         StripToastr.notify({
             text: "test1"
@@ -114,9 +114,9 @@
         });
 
         sap.ui.getCore().applyChanges();
-        // Assert
+        // Act
         StripToastr.clear();
-
+        // Assert
         setTimeout(function() {
             var oContainer = StripToastr.getContainer();
             assert.strictEqual(oContainer, undefined, "Container was destroyed");
