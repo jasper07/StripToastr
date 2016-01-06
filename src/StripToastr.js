@@ -125,8 +125,11 @@ sap.ui.define(["sap/m/MessageStrip", "sap/m/MessageStripRenderer", 'sap/ui/core/
 			 * Detroy the container
 			 */
 			destroyContainer: function() {
-				this.getContainer().setVisible(false);
-				this.getContainer().destroy();
+				var oContainer = this.getContainer();
+				if (oContainer) {
+					oContainer.setVisible(false);
+					oContainer.destroy();
+				}
 			},
 
 
@@ -136,20 +139,18 @@ sap.ui.define(["sap/m/MessageStrip", "sap/m/MessageStripRenderer", 'sap/ui/core/
 			clearContainer: function() {
 				var oContainer = this.getContainer();
 
-				if (!oContainer) {
-					return;
+				if (oContainer) {
+					var aContent = oContainer.getContent();
+					if (aContent.length === 0) {
+						this.destroyContainer();
+					} else {
+						var fnClear = function(oControl) {
+							this.clear(oControl);
+						}.bind(this);
+
+						aContent.forEach(fnClear);
+					}
 				}
-
-				var oContent = oContainer.getContent();
-				if (oContent.length === 0) {
-					return this.destroyContainer();
-				}
-
-				var fnClear = function(oControl) {
-					this.clear(oControl);
-				}.bind(this);
-
-				this.getContainer().getContent().forEach(fnClear);
 			}
 		};
 
