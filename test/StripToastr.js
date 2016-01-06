@@ -12,11 +12,6 @@
     });
 
     QUnit.test('Rendered ', function(assert) {
-        assert.ok(true, "created");
-    });
-
-
-    QUnit.test('Rendered ', function(assert) {
         // Arrange
         var oToast = StripToastr.notify({
             text: "test1"
