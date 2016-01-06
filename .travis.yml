@@ -9,11 +9,11 @@ branches:
 
 before_install:
   - npm install -g eslint
-  - npm install gulp -g
+  - npm install grunt -g
 
 script:
   - npm install
-  - gulp test 
+  - grunt test 
 
 notifications:
   email:

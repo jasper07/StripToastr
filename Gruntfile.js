@@ -127,7 +127,7 @@ module.exports = function(grunt) {
     grunt.registerTask("buildRun", ["build", "serve:dist"]);
 
     // Test task
-    grunt.registerTask("test", ["openui5_connect:src", "qunit:unit"]);
+    grunt.registerTask("test", ["qunit:unit"]);
     grunt.registerTask("unitTest", ["openui5_connect:src", "qunit:unit"]);
     
 
