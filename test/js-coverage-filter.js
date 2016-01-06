@@ -1,4 +1,4 @@
-/* filter only sap.uxap results */
+/* filter only openui5 results */
 if (window.blanket) {
 	var fnOriginalReport = window.blanket.report;
 	window.blanket.report = function () {
