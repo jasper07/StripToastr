@@ -1,3 +1,4 @@
+
 language: node_js
 cache: true
 node_js:
@@ -9,11 +10,11 @@ branches:
 
 before_install:
   - npm install -g eslint
-  - npm install grunt -g
+  - npm install gulp -g
 
 script:
   - npm install
-  - grunt test 
+  - gulp test 
 
 notifications:
   email:
