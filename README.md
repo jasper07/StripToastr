@@ -1,5 +1,6 @@
 StripToastr - OpenUI5 MessageStrips that Growl
-[![Build Status](https://api.shippable.com/projects/55ade0f2edd7f2c0527bfbaa/badge/master)](https://app.shippable.com/projects/55ade0f2edd7f2c0527bfbaa/builds/latest)
+
+[![Build Status](https://api.shippable.com/projects/568c88651895ca4474679c01/badge/master)](https://app.shippable.com/projects/568c88651895ca4474679c01/builds/latest)
 
 ===================
 
@@ -15,6 +16,4 @@ MIT
 
 Demos
 ----
-Examples are in the `samples` directory and cover all of the core functionality.
-
-See http://jasper07.secondphase.com.au/StripToastr/ for online demos.
+http://jasper07.secondphase.com.au/StripToastr/  
