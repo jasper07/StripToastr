@@ -102,7 +102,7 @@
             var oShowBtn = new Button({
                 text: "Show",
                 type: "Accept",
-                width: "200px",
+                // width: "200px",
                 press: function() {
                     var oData = {
                         text: oTextInput.getValue(),
@@ -121,7 +121,7 @@
             var oClearBtn = new Button({
                 text: "Clear All",
                 type: "Reject",
-                width: "200px",
+                // width: "200px",
                 press: function() {
                     StripToastr.clear();
                 }
@@ -130,7 +130,7 @@
             var oClearLastBtn = new Button({
                 text: "Clear Last",
                 type: "Reject",
-                width: "200px",
+                // width: "200px",
                 press: function() {
                     StripToastr.clear(oLast);
                 }
