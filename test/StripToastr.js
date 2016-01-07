@@ -3,7 +3,8 @@
     "sap/ui/thirdparty/sinon",
     "sap/ui/thirdparty/sinon-qunit"
  ], function(StripToastr) {
-    'use strict';
+    "use strict";
+    sinon.config.useFakeTimers = false;
     QUnit.module("Basics", {
         teardown: function() {
             StripToastr.clear();
@@ -11,7 +12,7 @@
         }
     });
 
-    QUnit.test('Rendered ', function(assert) {
+    QUnit.test("Rendered ", function(assert) {
         // Arrange
         var oToast = StripToastr.notify({
             text: "test1"
@@ -77,7 +78,7 @@
         }
     });
 
-    QUnit.test('Clear empty container ', function(assert) {
+    QUnit.test("Clear empty container ", function(assert) {
         // Arrange
         var delay = 500;
         var done = assert.async();
@@ -98,7 +99,7 @@
         }, delay);
     });
 
-    QUnit.test('Clear all ', function(assert) {
+    QUnit.test("Clear all ", function(assert) {
         // Arrange
         var delay = 1000;
         var done = assert.async();
@@ -125,7 +126,7 @@
 
     });
 
-    QUnit.test('Clear - 3 message remove 2nd only ', function(assert) {
+    QUnit.test("Clear - 3 message remove 2nd only ", function(assert) {
         // Arrange
         var delay = 1000;
         var done = assert.async();
