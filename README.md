@@ -18,6 +18,20 @@ License
 -------
 MIT
 
+Use
+---
+
+```javascript
+Openui5.StripToastr.notify({
+    text: "test1"
+})
+```
+
+
 Demos
 ----
+
+[<img src="Demo.PNG">](https://jasper07.secondphase.com.au/StripToastr/)
+
 https://jasper07.secondphase.com.au/StripToastr/  
+

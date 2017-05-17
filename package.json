@@ -2,12 +2,9 @@
     "name": "striptoastr",
     "version": "1.0.0",
     "description": "Message Strips that Growl",
-    "main": "gulpfile.js",
-    "directories": {
-        "test": "test"
-    },
+    "main": "src/StripToastr.js",
     "scripts": {
-        "test": "test"
+        "test": "gulp test"
     },
     "repository": {
         "type": "git",
