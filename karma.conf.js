@@ -32,7 +32,7 @@ module.exports = function(config) {
         // do not include tests or libraries
         // (these files will be instrumented by Istanbul)
         preprocessors: {
-            "src/**/!(markerclusterer).js": ["coverage"]
+            "src/**/": ["coverage"]
         },
 
         // Configuration of coverage reporter
