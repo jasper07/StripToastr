@@ -41,7 +41,6 @@ gulp.task("lint", () => {
         .pipe(eslint.failAfterError());
 });
 
-
 /**
  * Run specs once and exit
  * To start servers and run midway specs as well:

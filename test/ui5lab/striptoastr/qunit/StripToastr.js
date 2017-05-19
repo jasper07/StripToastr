@@ -5,52 +5,49 @@
  ], function(StripToastr) {
      "use strict";
      sinon.config.useFakeTimers = false;
-     QUnit.module("Basics", {
+     var oCore = sap.ui.getCore();
+
+     module("AtripToastr basics", {
          teardown: function() {
              StripToastr.clear();
-             sap.ui.getCore().applyChanges();
+             oCore.applyChanges();
          }
      });
 
-     QUnit.test("Rendered ", function(assert) {
+     test("should be rendered and have alert role", function() {
          // Arrange
-         var oToast = StripToastr.notify({
-             text: "test1"
-         });
+         var oToast = StripToastr.notify({ text: "test1" });
 
-         sap.ui.getCore().applyChanges();
+         oCore.applyChanges();
 
          // Assert
-         assert.ok(oToast, "created");
-         assert.strictEqual(oToast.$().attr("role"), "alert", "The role is set");
-
+         ok(oToast, "created");
+         equal(oToast.$().attr("role"), "alert", "The alert role is set");
      });
 
-     QUnit.test("Newest first", function(assert) {
+     test("should show the newest message first", function() {
          // Arrange
          StripToastr._oSettings.newestFirst = true;
 
          // Act
-         var aMessages = [
-             StripToastr.notify({
-                 text: "test1"
-             }), StripToastr.notify({
-                 text: "test2"
-             }), StripToastr.notify({
-                 text: "test3"
-             })
-         ];
+         var aTexts = ["test1", "test2", "test3"]
 
-         sap.ui.getCore().applyChanges();
+         aTexts.forEach(function(sText) {
+             StripToastr.notify({ text: sText });
+         });
+
+         oCore.applyChanges();
 
          // Assert
          var oContent = StripToastr.getContainer().getContent();
-         assert.strictEqual(oContent[0].getText(), aMessages[2].getText(), "first is last");
-         assert.strictEqual(oContent[2].getText(), aMessages[0].getText(), "last is first");
+         var iLast = oContent.length - 1;
+         var iFirst = 0;
+         equal(oContent[iFirst].getText(), aTexts[iLast], "first message equals last text");
+         equal(oContent[iLast].getText(), aTexts[iFirst], "last message equals first text");
          StripToastr._oSettings.newestFirst = false;
      });
 
-     QUnit.test("Close Callback", function(assert) {
+     test("should trigger callback on close", function(assert) {
          // Arrange
          var done = assert.async();
          var delay = 1000;
@@ -66,19 +63,19 @@
 
          // Assert
          setTimeout(function() {
-             assert.strictEqual(fnCloseCallBackSpy.callCount, 1, "Close Callback reached");
+             equal(fnCloseCallBackSpy.callCount, 1, "Close Callback reached");
              done();
          }, delay);
      });
 
-     QUnit.module("Clear", {
+     module("StripToast clear messages feature", {
          teardown: function() {
              StripToastr.clear();
-             sap.ui.getCore().applyChanges();
+             oCore.applyChanges();
          }
      });
 
-     QUnit.test("Clear empty container ", function(assert) {
+     test("should destroy container if nothing to clear", function(assert) {
          // Arrange
          var delay = 500;
          var done = assert.async();
@@ -86,126 +83,120 @@
              position: "left bottom",
              anchor: document
          });
-         sap.ui.getCore().applyChanges();
-         assert.ok(oContainer.$(), "Container rendered");
-         assert.strictEqual(oContainer.getContent().length, 0, "Container empty");
+         oCore.applyChanges();
+         ok(oContainer.$(), "Container rendered");
+         equal(oContainer.getContent().length, 0, "Container empty");
 
          // Act
          StripToastr.clear();
          // Assert
          setTimeout(function() {
-             assert.strictEqual(oContainer.$().length, 0, "Container DOM was destroyed");
+             equal(oContainer.$().length, 0, "Container DOM was destroyed");
              done();
          }, delay);
      });
 
-     QUnit.test("Clear all ", function(assert) {
+     test("should clear all shown messages and then destroy container", function(assert) {
          // Arrange
          var delay = 1000;
          var done = assert.async();
 
-         StripToastr.notify({
-             text: "test1"
-         });
-         StripToastr.notify({
-             text: "test2"
-         });
-         StripToastr.notify({
-             text: "test3"
-         });
+         var aMessages = ["test1", "test2", "test3"];
 
-         sap.ui.getCore().applyChanges();
+         aMessages.forEach(function(sMessage) {
+             StripToastr.notify({ text: sMessage });
+         })
+
+         oCore.applyChanges();
          // Act
          StripToastr.clear();
          // Assert
          setTimeout(function() {
              var oContainer = StripToastr.getContainer();
-             assert.strictEqual(oContainer, undefined, "Container was destroyed");
+             equal(oContainer, undefined, "Container was destroyed");
              done();
          }, delay);
 
      });
 
-     QUnit.test("Clear - 3 message remove 2nd only ", function(assert) {
+     test("should show 3 messags and clear 2nd message only", function(assert) {
          // Arrange
          var delay = 1000;
          var done = assert.async();
 
-         var aMessages = [
-             StripToastr.notify({
-                 text: "test1"
-             }), StripToastr.notify({
-                 text: "test2"
-             }), StripToastr.notify({
-                 text: "test3"
-             })
-         ];
+         var aTexts = ["test1", "test2", "test3"];
 
-         sap.ui.getCore().applyChanges();
+         var aMessages = aTexts.map(function(sText) {
+             return StripToastr.notify({ text: sText });
+         });
+
+         oCore.applyChanges();
          //Act
-         StripToastr.clear(aMessages[1]);
+         StripToastr.clear(aMessages[1]); //clear second message
          // Assert
          setTimeout(function() {
-             var oContent = StripToastr.getContainer().getContent();
-             assert.strictEqual(oContent.length, 2, "Container has 2 controls");
-             assert.strictEqual(oContent[1].getText(), aMessages[2].getText(), "Container message 2 correct");
+             var aContent = StripToastr.getContainer().getContent();
+             var aResults = aContent.map(function(oContent) { return oContent.getText() });
+             var aExpected = aTexts.filter(function(_, i) { return i !== 1 });
+             equal(aContent.length, 2, "Container has 2 controls");
+             deepEqual(aResults, aExpected, "Container is missing second message");
              done();
          }, delay);
 
      });
 
      // Positioning started failing as the calculations get adjusted by Qunit runner
-     //  QUnit.module("Positioning", {
+     //  module("Positioning", {
      //      teardown: function() {
      //          StripToastr.destroyContainer();
-     //          sap.ui.getCore().applyChanges();
+     //         oCore.applyChanges();
      //      }
      //  });
 
-     //  QUnit.test("Top right", function(assert) {
+     //  test("Top right", function(assert) {
      //      // Arrange
      //      StripToastr.notify({
      //          text: "test1",
      //          position: "right top"
      //      });
 
-     //      sap.ui.getCore().applyChanges();
+     //     oCore.applyChanges();
 
      //      //Act
      //      var oContainer = StripToastr.getContainer();
      //      var oDomRef = oContainer.$();
 
      //      // Assert
-     //      assert.strictEqual(oDomRef.css("right"), "0px", "Right 0px");
-     //      assert.strictEqual(oDomRef.css("top"), "0px", "Top 0px");
+     //      strictEqual(oDomRef.css("right"), "0px", "Right 0px");
+     //      strictEqual(oDomRef.css("top"), "0px", "Top 0px");
      //  });
 
-     //  QUnit.test("Top left", function(assert) {
+     //  test("Top left", function(assert) {
      //      // Arrange
      //      StripToastr.notify({
      //          text: "test1",
      //          position: "left top"
      //      });
 
-     //      sap.ui.getCore().applyChanges();
+     //     oCore.applyChanges();
 
      //      //Act
      //      var oContainer = StripToastr.getContainer();
      //      var oDomRef = oContainer.$();
 
      //      // Assert
-     //      assert.strictEqual(oDomRef.css("left"), "0px", "Left 0px");
-     //      assert.strictEqual(oDomRef.css("top"), "0px", "Top 0px");
+     //      strictEqual(oDomRef.css("left"), "0px", "Left 0px");
+     //      strictEqual(oDomRef.css("top"), "0px", "Top 0px");
      //  });
 
-     // QUnit.test("Bottom right", function(assert) {
+     // test("Bottom right", function(assert) {
      //     // Arrange
      //     StripToastr.notify({
      //         text: "test1",
      //         position: "right bottom"
      //     });
 
-     //     sap.ui.getCore().applyChanges();
+     //    oCore.applyChanges();
 
      //     //Act
      //     var oContainer = StripToastr.getContainer();
@@ -213,19 +204,19 @@
 
      //     // Assert
      //     var iTop = (jQuery(window).height() - oDomRef.height());
-     //     assert.strictEqual(oDomRef.css("right"), "0px", "Right 0px");
-     //     assert.strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     //     strictEqual(oDomRef.css("right"), "0px", "Right 0px");
+     //     strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
      // });
 
 
-     // QUnit.test("Bottom left", function(assert) {
+     // test("Bottom left", function(assert) {
      //     // Arrange
      //     StripToastr.notify({
      //         text: "test1",
      //         position: "left bottom"
      //     });
 
-     //     sap.ui.getCore().applyChanges();
+     //    oCore.applyChanges();
 
      //     //Act
      //     var oContainer = StripToastr.getContainer();
@@ -233,18 +224,18 @@
 
      //     // Assert
      //     var iTop = (jQuery(window).height() - oDomRef.height());
-     //     assert.strictEqual(oDomRef.css("left"), "0px", "Left 0px");
-     //     assert.strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     //     strictEqual(oDomRef.css("left"), "0px", "Left 0px");
+     //     strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
      // });
 
-     //  QUnit.test("Center center", function(assert) {
+     //  test("Center center", function(assert) {
      //      // Arrange
      //      StripToastr.notify({
      //          text: "test1",
      //          position: "center center"
      //      });
 
-     //      sap.ui.getCore().applyChanges();
+     //     oCore.applyChanges();
 
      //      //Act
      //      var oContainer = StripToastr.getContainer();
@@ -253,7 +244,7 @@
      //      // Assert
      //      var iLeft = (jQuery(window).width() - oDomRef.width()) / 2;
      //      var iTop = (jQuery(window).height() - oDomRef.height()) / 2;
-     //      assert.strictEqual(parseFloat(oDomRef.css("left")), iLeft, "Left " + iLeft + "px");
-     //      assert.strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     //      strictEqual(parseFloat(oDomRef.css("left")), iLeft, "Left " + iLeft + "px");
+     //      strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
      //  });
  });
