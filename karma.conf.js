@@ -14,8 +14,13 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            { pattern: "src/**", included: false, served: true, watched: false, nocache: false },
-            "test/StripToastr.js"
+            { pattern: "src/ui5lab/striptoastr/**", included: false, served: true, watched: false, nocache: false },
+            "test/ui5lab/striptoastr/qunit/StripToastr.js",
+            { pattern: "test/ui5lab/striptoastr/qunit/**/*.*", included: false, served: true }
+        ],
+
+        exclude: [
+            "dist/**/"
         ],
 
         // In case an absolute URL is used at some point of the code, a proxy configuration is required.
@@ -66,7 +71,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ["PhantomJS_custom"], // ["Chrome"],
+        browsers: ["PhantomJS_custom"], //*/ ["Chrome"],
 
         // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
         phantomjsLauncher: {
@@ -97,7 +102,7 @@ module.exports = function(config) {
         },
 
         openui5: {
-            path: "https://openui5.hana.ondemand.com/resources/sap-ui-core.js",
+            path: "https://openui5.hana.ondemand.com/1.40.4/resources/sap-ui-core.js",
             useMockServer: false
         },
 
@@ -115,15 +120,15 @@ module.exports = function(config) {
             openui5: {
                 config: {
                     // theme: "sap_belize",
-                    libs: "sap.m",
+                    libs: "sap.m, ui5lab.striptoastr",
                     // compatVersion: "edge",
                     // frameOptions: "allow",
                     // preload: "async",
                     // animation: "false",
                     debug: "false",
                     resourceroots: {
-                        "openui5": "/base/src/",
-                        "test.unit": "/test/"
+                        "ui5lab": "/src/ui5lab",
+                        "test.unit": "/test/ui5lab/striptoastr/qunit"
                     }
                 }
             }

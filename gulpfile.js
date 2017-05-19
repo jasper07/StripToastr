@@ -3,11 +3,31 @@
 
 const gulp = require("gulp");
 const eslint = require("gulp-eslint");
+const ui5preload = require("gulp-ui5-preload");
+const uglify = require("gulp-uglify");
+const concat = require("gulp-concat");
+const clean = require("gulp-clean");
+const rename = require("gulp-rename");
+const header = require("gulp-header");
+const streamify = require("gulp-streamify");
+const pkg = require("./package.json");
+
+const libNS = "ui5lab.striptoastr";
 
 const filePath = {
-    src: "./src/*.js",
-    test: "./test/*.js"
+    src: "./src/" + libNS.replace(".", "/") + "/*",
+    test: "./test/*.js",
+    dist: "./dist/",
+    dest: "./dist/" + libNS.replace(".", "/")
 };
+
+const banner = ["/**",
+    " * <%= pkg.name %> - <%= pkg.description %>",
+    " * @version v<%= pkg.version %>",
+    " * @link <%= pkg.homepage %>",
+    " * @license <%= pkg.license %>",
+    " */"
+].join("\n");
 
 /**
  * lint code
@@ -47,7 +67,7 @@ gulp.task("tdd", (done) => {
 function startTests(singleRun, done) {
     var Server = require("karma").Server;
 
-    function karmaCompleted(karmaResult) {
+    const karmaCompleted = (karmaResult) => {
         console.log("Karma completed");
 
         if (karmaResult === 1) {
@@ -62,3 +82,49 @@ function startTests(singleRun, done) {
         singleRun: !!singleRun
     }, karmaCompleted).start();
 }
+
+/**
+ * clean dest folder
+ */
+gulp.task("clean", () => {
+    return gulp.src(filePath.dist, {
+        read: false
+    }).pipe(clean());
+});
+
+
+/**
+ * create script dbg files
+ */
+gulp.task("scripts-dbg", ["lint", "clean"], () => {
+    return gulp.src(filePath.src)
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(rename({ suffix: "-dbg" }))
+        .pipe(gulp.dest(filePath.dest))
+        .on("error", (err) => {
+            console.error("Error in scripts-dbg task", err.toString());
+        });
+});
+
+/**
+ * create minified scripts
+ */
+gulp.task("scripts-min", ["lint", "clean"], () => {
+    return gulp.src(filePath.src)
+        .pipe(streamify(uglify()))
+        .pipe(gulp.dest(filePath.dest))
+        .pipe(concat("library-all.js"))
+        .pipe(gulp.dest(filePath.dest));
+});
+
+/**
+ * create ui5 library preload json file
+ */
+gulp.task("ui5preload", ["lint", "clean"], () => {
+    return gulp.src([filePath.src])
+        .pipe(streamify(uglify()))
+        .pipe(ui5preload({ base: "src/ui5lab/striptoastr", namespace: libNS, isLibrary: true }))
+        .pipe(gulp.dest(filePath.dest));
+});
+
+gulp.task("build", ["clean", "lint", "test", "scripts-dbg", "scripts-min", "ui5preload"]);
