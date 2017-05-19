@@ -3,7 +3,8 @@
  * @version v1.0.0
  * @link https://github.com/jasper07/StripToastr#readme
  * @license MIT
- */sap.ui.define(["sap/m/MessageStrip", "sap/m/MessageStripRenderer", "sap/ui/core/Popup", "sap/ui/layout/VerticalLayout"],
+ */
+sap.ui.define(["sap/m/MessageStrip", "sap/m/MessageStripRenderer", "sap/ui/core/Popup", "sap/ui/layout/VerticalLayout"],
     function(MessageStrip, MessageStripRenderer, Popup, VerticalLayout) {
         "use strict";
         var MessageStripExt = MessageStrip.extend("MessageStripExt", {

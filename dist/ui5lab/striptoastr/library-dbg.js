@@ -3,10 +3,7 @@
  * @version v1.0.0
  * @link https://github.com/jasper07/StripToastr#readme
  * @license MIT
- *//*
- * ${copyright}
  */
-
 /**
  * Initialization Code and shared classes of library ui5lab.striptoastr.
  */

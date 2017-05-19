@@ -6,7 +6,7 @@ StripToastr - OpenUI5 MessageStrips that Growl
 [![PRs Welcome](https://img.shields.io/badge/prs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
-=============================================
+===========================================
 
 
 Author
@@ -22,7 +22,7 @@ Use
 ---
 
 ```javascript
-Openui5.StripToastr.notify({
+StripToastr.notify({
     text: "test1"
 })
 ```
@@ -31,7 +31,7 @@ Openui5.StripToastr.notify({
 Demos
 ----
 
-[<img src="Demo.PNG">](https://jasper07.secondphase.com.au/StripToastr/)
+[<img src="StripToastr_demo.gif">](https://jasper07.secondphase.com.au/StripToastr/)
 
 https://jasper07.secondphase.com.au/StripToastr/  
 

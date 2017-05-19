@@ -19,6 +19,7 @@ module.exports = function(config) {
             { pattern: "test/ui5lab/striptoastr/qunit/**/*.*", included: false, served: true }
         ],
 
+        // list of files to exclude
         exclude: [
             "dist/**/"
         ],

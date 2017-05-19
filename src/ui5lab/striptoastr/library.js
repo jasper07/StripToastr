@@ -1,7 +1,3 @@
-/*
- * ${copyright}
- */
-
 /**
  * Initialization Code and shared classes of library ui5lab.striptoastr.
  */

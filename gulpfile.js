@@ -26,7 +26,8 @@ const banner = ["/**",
     " * @version v<%= pkg.version %>",
     " * @link <%= pkg.homepage %>",
     " * @license <%= pkg.license %>",
-    " */"
+    " */",
+    ""
 ].join("\n");
 
 /**
