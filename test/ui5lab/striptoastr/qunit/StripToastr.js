@@ -100,11 +100,8 @@
          // Arrange
          var delay = 1000;
          var done = assert.async();
-
-         var aMessages = ["test1", "test2", "test3"];
-
-         aMessages.forEach(function(sMessage) {
-             StripToastr.notify({ text: sMessage });
+         ["test1", "test2", "test3"].map(function(sText) {
+             return StripToastr.notify({ text: sText });
          })
 
          oCore.applyChanges();
@@ -113,7 +110,7 @@
          // Assert
          setTimeout(function() {
              var oContainer = StripToastr.getContainer();
-             equal(oContainer, undefined, "Container was destroyed");
+             equal(oContainer, undefined, "Container was destroyed also");
              done();
          }, delay);
 
@@ -146,105 +143,104 @@
      });
 
      // Positioning started failing as the calculations get adjusted by Qunit runner
-     //  module("Positioning", {
-     //      teardown: function() {
-     //          StripToastr.destroyContainer();
-     //         oCore.applyChanges();
-     //      }
-     //  });
+     module("StripToastr positioning", {
+         teardown: function() {
+             StripToastr.destroyContainer();
+             oCore.applyChanges();
+         }
+     });
 
-     //  test("Top right", function(assert) {
-     //      // Arrange
-     //      StripToastr.notify({
-     //          text: "test1",
-     //          position: "right top"
-     //      });
+     QUnit.skip("should show message in Top right", function(assert) {
+         // Arrange
+         StripToastr.notify({
+             text: "test1",
+             position: "right top"
+         });
 
-     //     oCore.applyChanges();
+         oCore.applyChanges();
 
-     //      //Act
-     //      var oContainer = StripToastr.getContainer();
-     //      var oDomRef = oContainer.$();
+         //Act
+         var oContainer = StripToastr.getContainer();
+         var oDomRef = oContainer.$();
 
-     //      // Assert
-     //      strictEqual(oDomRef.css("right"), "0px", "Right 0px");
-     //      strictEqual(oDomRef.css("top"), "0px", "Top 0px");
-     //  });
+         // Assert
+         equal(oDomRef.css("right"), "0px", "Right 0px");
+         equal(oDomRef.css("top"), "0px", "Top 0px");
+     });
 
-     //  test("Top left", function(assert) {
-     //      // Arrange
-     //      StripToastr.notify({
-     //          text: "test1",
-     //          position: "left top"
-     //      });
+     QUnit.skip("should show message in Top left", function(assert) {
+         // Arrange
+         StripToastr.notify({
+             text: "test1",
+             position: "left top"
+         });
 
-     //     oCore.applyChanges();
+         oCore.applyChanges();
 
-     //      //Act
-     //      var oContainer = StripToastr.getContainer();
-     //      var oDomRef = oContainer.$();
+         //Act
+         var oContainer = StripToastr.getContainer();
+         var oDomRef = oContainer.$();
 
-     //      // Assert
-     //      strictEqual(oDomRef.css("left"), "0px", "Left 0px");
-     //      strictEqual(oDomRef.css("top"), "0px", "Top 0px");
-     //  });
+         // Assert
+         equal(oDomRef.css("left"), "0px", "Left 0px");
+         equal(oDomRef.css("top"), "0px", "Top 0px");
+     });
 
-     // test("Bottom right", function(assert) {
-     //     // Arrange
-     //     StripToastr.notify({
-     //         text: "test1",
-     //         position: "right bottom"
-     //     });
+     QUnit.skip("should show message in Bottom right", function(assert) {
+         // Arrange
+         StripToastr.notify({
+             text: "test1",
+             position: "right bottom"
+         });
 
-     //    oCore.applyChanges();
+         oCore.applyChanges();
 
-     //     //Act
-     //     var oContainer = StripToastr.getContainer();
-     //     var oDomRef = oContainer.$();
+         //Act
+         var oContainer = StripToastr.getContainer();
+         var oDomRef = oContainer.$();
 
-     //     // Assert
-     //     var iTop = (jQuery(window).height() - oDomRef.height());
-     //     strictEqual(oDomRef.css("right"), "0px", "Right 0px");
-     //     strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
-     // });
+         // Assert
+         var iTop = jQuery(window).height() - oDomRef.height();
+         equal(oDomRef.css("right"), "0px", "Right 0px");
+         equal(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     });
 
+     QUnit.skip("should show message in Bottom left", function(assert) {
+         // Arrange
+         StripToastr.notify({
+             text: "test1",
+             position: "left bottom"
+         });
 
-     // test("Bottom left", function(assert) {
-     //     // Arrange
-     //     StripToastr.notify({
-     //         text: "test1",
-     //         position: "left bottom"
-     //     });
+         oCore.applyChanges();
 
-     //    oCore.applyChanges();
+         //Act
+         var oContainer = StripToastr.getContainer();
+         var oDomRef = oContainer.$();
 
-     //     //Act
-     //     var oContainer = StripToastr.getContainer();
-     //     var oDomRef = oContainer.$();
+         // Assert
+         var iTop = jQuery(window).height() - oDomRef.height();
+         equal(oDomRef.css("left"), "0px", "Left 0px");
+         equal(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     });
 
-     //     // Assert
-     //     var iTop = (jQuery(window).height() - oDomRef.height());
-     //     strictEqual(oDomRef.css("left"), "0px", "Left 0px");
-     //     strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
-     // });
+     QUnit.skip("should show message in Center center", function(assert) {
+         // Arrange
+         StripToastr.notify({
+             text: "test1",
+             position: "center center"
+         });
 
-     //  test("Center center", function(assert) {
-     //      // Arrange
-     //      StripToastr.notify({
-     //          text: "test1",
-     //          position: "center center"
-     //      });
+         oCore.applyChanges();
 
-     //     oCore.applyChanges();
+         //Act
+         var oContainer = StripToastr.getContainer();
+         var oDomRef = oContainer.$();
 
-     //      //Act
-     //      var oContainer = StripToastr.getContainer();
-     //      var oDomRef = oContainer.$();
-
-     //      // Assert
-     //      var iLeft = (jQuery(window).width() - oDomRef.width()) / 2;
-     //      var iTop = (jQuery(window).height() - oDomRef.height()) / 2;
-     //      strictEqual(parseFloat(oDomRef.css("left")), iLeft, "Left " + iLeft + "px");
-     //      strictEqual(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
-     //  });
+         // Assert
+         var iLeft = (jQuery(window).width() - oDomRef.width()) / 2;
+         var iTop = (jQuery(window).height() - oDomRef.height()) / 2;
+         equal(parseFloat(oDomRef.css("left")), iLeft, "Left " + iLeft + "px");
+         equal(parseFloat(oDomRef.css("top")), iTop, "Top " + iTop + "px");
+     });
  });
