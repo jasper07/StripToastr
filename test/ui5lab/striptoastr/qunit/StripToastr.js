@@ -7,7 +7,7 @@
      sinon.config.useFakeTimers = false;
      var oCore = sap.ui.getCore();
 
-     module("AtripToastr basics", {
+     module("StripToastr basics", {
          teardown: function() {
              StripToastr.clear();
              oCore.applyChanges();
