@@ -10,6 +10,7 @@ const clean = require("gulp-clean");
 const rename = require("gulp-rename");
 const header = require("gulp-header");
 const streamify = require("gulp-streamify");
+const sequence = require("run-sequence");
 const pkg = require("./package.json");
 
 const libNS = "ui5lab.striptoastr";
@@ -92,7 +93,6 @@ gulp.task("clean", () => {
     }).pipe(clean());
 });
 
-
 /**
  * create script dbg files
  */
@@ -110,8 +110,12 @@ gulp.task("scripts-dbg", ["lint", "clean"], () => {
  * create minified scripts
  */
 gulp.task("scripts-min", ["lint", "clean"], () => {
+    const options = {
+        preserveComments: "license"
+    };
     return gulp.src(filePath.src)
-        .pipe(streamify(uglify()))
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(streamify(uglify(options)))
         .pipe(gulp.dest(filePath.dest))
         .pipe(concat("library-all.js"))
         .pipe(gulp.dest(filePath.dest));
@@ -120,11 +124,15 @@ gulp.task("scripts-min", ["lint", "clean"], () => {
 /**
  * create ui5 library preload json file
  */
-gulp.task("ui5preload", ["lint", "clean"], () => {
-    return gulp.src([filePath.src])
-        .pipe(streamify(uglify()))
-        .pipe(ui5preload({ base: "src/ui5lab/striptoastr", namespace: libNS, isLibrary: true }))
+gulp.task("buildlibrary", ["lint", "clean", "scripts-min", "scripts-dbg"], () => {
+    return gulp.src([filePath.dest + "/**/!(*-dbg.js|*-all.js)"])
+        .pipe(ui5preload({ base: "dist/ui5lab/striptoastr", namespace: libNS, isLibrary: true }))
         .pipe(gulp.dest(filePath.dest));
 });
 
-gulp.task("build", ["clean", "lint", "test", "scripts-dbg", "scripts-min", "ui5preload"]);
+/**
+ * build task
+ */
+gulp.task("build", (cb) => {
+    sequence(["lint", "test"], "buildlibrary", cb);
+});

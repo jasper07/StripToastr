@@ -132,7 +132,6 @@ sap.ui.define(["sap/m/MessageStrip", "sap/m/MessageStripRenderer", "sap/ui/core/
                 }
             },
 
-
             /**
              * Clear the container
              */

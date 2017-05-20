@@ -11,3 +11,6 @@ bower_components
 
 #ignore reports
 reports
+
+#ignore vscode settings
+.vscode
