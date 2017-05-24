@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <title>StripToastr Test PlayGround</title>
-    <script id="sap-ui-bootstrap" src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" data-sap-ui-libs="sap.m, ui5lab/striptoastr" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-theme="sap_bluecrystal" data-sap-ui-preload="async" data-sap-ui-accessibility="false"
-        data-sap-ui-resourceroots='{"ui5lab.striptoastr":"../"}'>
+    <script id="sap-ui-bootstrap" src="/resources/sap-ui-core.js" data-sap-ui-libs="sap.m, ui5lab.striptoastr" data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-theme="sap_belize" data-sap-ui-preload="async" data-sap-ui-accessibility="false">
     </script>
     <style type="text/css">
         .newButton.sapMBtn {
@@ -208,6 +207,8 @@
                 });
 
                 var oPage = new sap.m.Page({
+                    showHeader: false,
+                    enableScrolling: false,
                     title: "StripToastr Test PlayGround",
                     content: [oSimpleForm]
                 });
@@ -225,8 +226,7 @@
     </script>
 </head>
 
-<body class="sapUiBody"></body>
-<div id="content"></div>
+<body class="sapUiBody" id="content"></body>
 <a href="https://github.com/jasper07/StripToastr"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
         alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
