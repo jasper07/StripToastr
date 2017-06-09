@@ -1,5 +1,8 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node'
+  }
   stages {
     stage('Checkout') {
       steps {
@@ -26,7 +29,6 @@ pipeline {
         }
     }
     stage('Test Frontend') {
-        agent { docker 'node:alpine' }
         steps {
             unstash 'ws'
             sh 'yarn install'
@@ -36,13 +38,11 @@ pipeline {
     }
 
     stage('Deploy to Staging') {
-        agent any
         steps {
             echo "Let's pretend a deployment is happening"
         }
     }
     stage('Deploy to production') {
-        agent any
         steps {
             input message: 'Deploy to production?', ok: 'Fire zee missiles!'
             echo "Let's pretend a production deployment is happening"
