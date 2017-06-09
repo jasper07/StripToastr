@@ -6,7 +6,7 @@ pipeline {
         echo 'hello world'
       }
     }
-    stage('') {
+    stage('build') {
       steps {
         sh '''npm install
 gulp test '''
