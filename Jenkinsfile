@@ -12,8 +12,6 @@ pipeline {
       }
     stage('Checkout') {
       steps {
-          // Used only for non-Multibranch Pipelines
-          // git 'https://github.com/rtyler/jhipster-sample-app'
           checkout scm
       }
     }
