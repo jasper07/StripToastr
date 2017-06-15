@@ -17,15 +17,10 @@ pipeline {
         steps {
             parallel(
                 'Unit' : {
-                    unstash 'ws'
-                    unstash 'war'
-                    sh './mvnw -B test'
-                    junit '**/surefire-reports/**/*.xml'
+                    echo "Let's pretend a deployment is happening"
                 },
                 'Performance' : {
-                    unstash 'ws'
-                    unstash 'war'
-                    // sh './mvnw -B gatling:execute'
+                    echo "Let's pretend a deployment is happening"
                 })
         }
     }
