@@ -15,7 +15,6 @@ pipeline {
           // Used only for non-Multibranch Pipelines
           // git 'https://github.com/rtyler/jhipster-sample-app'
           checkout scm
-          stash includes: '**', name: 'ws', useDefaultExcludes: false
       }
     }
     stage('Backend') {
@@ -31,7 +30,6 @@ pipeline {
     }
     stage('Test Frontend') {
         steps {
-            unstash 'ws'
             sh 'yarn install'
             sh 'yarn global add gulp-cli'
             sh 'gulp test'
