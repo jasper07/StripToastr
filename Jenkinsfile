@@ -28,8 +28,6 @@ pipeline {
     }
     stage('Test Frontend') {
         steps {
-            sh 'npm install -g eslint'
-            sh 'npm install gulp -g'
             sh 'npm install'
             sh 'gulp test'
         }
