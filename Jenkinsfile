@@ -1,9 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:alpine'
-    }
-  }
+  agent { docker 'node:alpine' }
   stages {
     stage("testing 123") {
        steps {
@@ -29,7 +25,7 @@ pipeline {
     stage('Test Frontend') {
         steps {
             sh 'npm install'
-            sh 'gulp test'
+            sh 'npm test'
         }
     }
 
