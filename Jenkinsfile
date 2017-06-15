@@ -28,8 +28,8 @@ pipeline {
     }
     stage('Test Frontend') {
         steps {
-            sh 'yarn install'
-            sh 'yarn global add gulp-cli'
+            sh 'npm install -g eslint'
+            sh 'npm install gulp -g'
             sh 'gulp test'
         }
     }
