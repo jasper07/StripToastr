@@ -16,7 +16,7 @@ pipeline {
             parallel(
                 'Unit' : {
                     echo "Let's pretend a deployment is happening"
-                    sh 'whoami'
+                    echo $(whoami)
                     sh 'ls -la /usr/local/lib/node_modules'
                 },
                 'Performance' : {
