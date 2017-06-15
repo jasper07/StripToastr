@@ -5,6 +5,11 @@ pipeline {
     }
   }
   stages {
+    stage("testing 123") {
+       steps {
+          sh 'node --version'
+            }
+      }
     stage('Checkout') {
       steps {
           // Used only for non-Multibranch Pipelines
