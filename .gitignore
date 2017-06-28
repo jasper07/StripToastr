@@ -1,0 +1,16 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Ignore npm files/folders
+node_modules
+npm-debug.log
+
+# Ignore bower folder
+bower_components
+
+#ignore reports
+reports
+
+#ignore vscode settings
+.vscode
