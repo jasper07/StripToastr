@@ -7,6 +7,7 @@
         "documentation": "https://github.com/jasper07/StripToastr#readme",
         "demo": "https://jasper07.secondphase.com.au/StripToastr/",
         "version": "1.0.0",
+        "license": "MIT",
         "content": {
             "StripToastr": {
                 "id": "StripToastr",
